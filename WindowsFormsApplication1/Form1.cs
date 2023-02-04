@@ -73,6 +73,34 @@ namespace WindowsFormsApplication1
             public string EmployeeID { get; set; }
         }
 
+        public class thirtydaydriverData
+        {
+            public string driverName { get; set; }
+            public string employeeID { get; set; }
+            public string supGroup { get; set; }
+            public string paycode { get; set; }
+            public string route { get; set; }
+            public string dayWork { get; set; }
+            public string planDay { get; set; }
+            public string OvUn { get; set; }
+            public string paidDay { get; set; }
+            public string SPORH { get; set; }
+            public string miles { get; set; }
+            public string SPM { get; set; }
+            public string delStops { get; set; }
+            public string puStops { get; set; }
+            public string delPkgs { get; set; }
+            public string puPkgs { get; set; }
+            public string paidSApercent { get; set; }
+            public string ccsendAgains { get; set; }
+            public string AM { get; set; }
+            public string PM { get; set; }
+            public string onroadHours { get; set; }
+            public string NDPPH { get; set; }
+            public string helperHours { get; set; }
+
+        }
+
         public void dateData()
         {
             Boolean detected = false;
@@ -218,6 +246,168 @@ namespace WindowsFormsApplication1
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}", "ERROR!", buttons: MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public void thirtydayData()
+        {
+            Boolean detected = false;
+            int placeHolder = 0;
+            int driverLine = 0;
+            int i = 0;
+            try
+            {
+                WebClient wClient = new WebClient();
+                var data = wClient.DownloadString($"https://pft.inside.ups.com/apps/DPSReports/SPMonthAvg.aspx?BLDG={bLDG.Text}&SLIC={sLIC.Text}");
+                HtmlAgilityPack.HtmlDocument hDoc = new HtmlAgilityPack.HtmlDocument();
+                hDoc.LoadHtml(data);
+
+
+                var tableQuery = from table in hDoc.DocumentNode.SelectNodes("//table").Cast<HtmlNode>()
+                                 from row in table.SelectNodes("tr").Cast<HtmlNode>()
+                                 from cell in row.SelectNodes("th|td").Cast<HtmlNode>()
+                                 select new { Table = table.Id, CellText = cell.InnerText };
+
+                List<thirtydaydriverData> drivers = new List<thirtydaydriverData>();
+
+                foreach (var line in tableQuery)
+                {
+
+                    if (line.CellText.ToString() == "Rte")
+                    {
+                        detected = true;
+                        driverLine = placeHolder + 19;
+                    }
+                    else
+                    {
+                        if (detected == false)
+                        {
+                            placeHolder++;
+                        }
+                    }
+                    if (detected == true)
+                    {
+                        if (driverLine == placeHolder)
+                        {
+                            var driverA = new thirtydaydriverData() { driverName = line.CellText.Trim() };
+                            drivers.Add(driverA);
+                        }
+                        if (driverLine + 1 == placeHolder)
+                        {
+                            drivers[i].employeeID = line.CellText.Trim();
+                        }
+                        if (driverLine + 2 == placeHolder)
+                        {
+                            drivers[i].supGroup = line.CellText.Trim();
+                        }
+                        if (driverLine + 3 == placeHolder)
+                        {
+                            drivers[i].paycode = line.CellText.Trim();
+                        }
+                        if (driverLine + 4 == placeHolder)
+                        {
+                            drivers[i].route = line.CellText.Trim();
+                        }
+                        if (driverLine + 5 == placeHolder)
+                        {
+                            drivers[i].dayWork = line.CellText.Trim();
+                        }
+                        if (driverLine + 6 == placeHolder)
+                        {
+                            drivers[i].planDay = line.CellText.Trim();
+                        }
+                        if (driverLine + 7 == placeHolder)
+                        {
+                            drivers[i].OvUn = line.CellText.Trim();
+                        }
+                        if (driverLine + 8 == placeHolder)
+                        {
+                            drivers[i].paidDay = line.CellText.Trim();
+                        }
+                        if (driverLine + 9 == placeHolder)
+                        {
+                            drivers[i].SPORH = line.CellText.Trim();
+                        }
+                        if (driverLine + 10 == placeHolder)
+                        {
+                            drivers[i].miles = line.CellText.Trim();
+                        }
+                        if (driverLine + 11 == placeHolder)
+                        {
+                            drivers[i].SPM = line.CellText.Trim();
+                        }
+                        if (driverLine + 12 == placeHolder)
+                        {
+                            drivers[i].delStops = line.CellText.Trim();
+                        }
+                        if (driverLine + 13 == placeHolder)
+                        {
+                            drivers[i].puStops = line.CellText.Trim();
+                        }
+                        if (driverLine + 14 == placeHolder)
+                        {
+                            drivers[i].delPkgs = line.CellText.Trim();
+                        }
+                        if (driverLine + 15 == placeHolder)
+                        {
+                            drivers[i].puPkgs = line.CellText.Trim();
+                        }
+                        if (driverLine + 16 == placeHolder)
+                        {
+                            drivers[i].paidSApercent = line.CellText.Trim();
+                        }
+                        if (driverLine + 17 == placeHolder)
+                        {
+                            drivers[i].ccsendAgains = line.CellText.Trim();
+                        }
+                        if (driverLine + 18 == placeHolder)
+                        {
+                            drivers[i].AM = line.CellText.Trim();
+                        }
+                        if (driverLine + 19 == placeHolder)
+                        {
+                            drivers[i].PM = line.CellText.Trim();
+                        }
+                        if (driverLine + 20 == placeHolder)
+                        {
+                            drivers[i].onroadHours = line.CellText.Trim();
+                        }
+                        if (driverLine + 21 == placeHolder)
+                        {
+                            drivers[i].NDPPH = line.CellText.Trim();
+                        }
+                        if (driverLine + 22 == placeHolder)
+                        {
+                            drivers[i].helperHours = line.CellText.Trim();
+                            i++;
+                            placeHolder++;
+                            driverLine = placeHolder;
+                        }
+                        else
+                        {
+                            placeHolder++;
+                        }
+                    }
+                }
+
+                if (!File.Exists("30daydriverData.json"))
+                {
+                    string jsonDrivers = JsonConvert.SerializeObject(drivers, Newtonsoft.Json.Formatting.Indented);
+                    File.WriteAllText("30daydriverData.json", jsonDrivers);
+                }
+                else
+                {
+                    File.Delete("30daydriverData.json");
+                    string jsonDrivers = JsonConvert.SerializeObject(drivers, Newtonsoft.Json.Formatting.Indented);
+                    File.WriteAllText("30daydriverData.json", jsonDrivers);
+                }
+
+                MessageBox.Show($"Driver data exported successfully!", "Success", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.None);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "Error!", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Error);
             }
         }
 
@@ -660,6 +850,21 @@ namespace WindowsFormsApplication1
                 var wdata = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
                 File.WriteAllText("config.json", wdata);
             }
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            thirtydayData();
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void puPkgs_TextChanged(object sender, EventArgs e)
+        {
 
         }
     }
