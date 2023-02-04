@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.Xml;
 using Newtonsoft;
 using HtmlAgilityPack;
+using System.Web;
 
 namespace WindowsFormsApplication1
 {    public partial class Form1 : Form
@@ -24,6 +25,12 @@ namespace WindowsFormsApplication1
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
+
+        public class mainConfig
+        {
+            public string Building { get; set; }
+            public string SLIC { get; set; }
+        }
         public class drvrData
         {
             public string Route { get; set; }
@@ -104,6 +111,10 @@ namespace WindowsFormsApplication1
 
                     if (detected == true)
                     {
+                        if (line.CellText.Contains("10 Days"))
+                        {
+                            break;
+                        }
                         if (line.CellText.Length == 5 || line.CellText.Length == 6) 
                         {
                             if (line.CellText.Trim().Contains("Day") || line.CellText.Trim().Contains("Days"))
@@ -404,27 +415,39 @@ namespace WindowsFormsApplication1
         {
             string data = File.ReadAllText("driverData.json");
             var driverData = JsonConvert.DeserializeObject<drvrData[]>(data);
+
+            comboBox2.Items.Clear();
             foreach (var line in driverData)
             {
-                if (line.Route == comboBox2.Text)
+                if (line.Drivername == comboBox1.Text)
                 {
-                    if (line.Drivername == comboBox1.Text)
+                    comboBox2.Items.Add(line.Route);
+                    comboBox2.SelectedIndex = 0;
+                }
+            }
+
+            
+            foreach (var line2 in driverData)
+            {
+                if (line2.Route == comboBox2.Text)
+                {
+                    if (line2.Drivername == comboBox1.Text)
                     {
                         deleteAll();
-                        planDay.Text = line.PlanDay;
-                        paidDay.Text = line.PaidDay;
-                        ovUn.Text = line.OvUn;
-                        sPORH.Text = line.SPORH;
-                        amTime.Text = line.AM;
-                        pmTime.Text = line.PM;
-                        delStops.Text = line.DelStops;
-                        delPkgs.Text = line.DelPkgs;
-                        puPkgs.Text = line.PUPkgs;
-                        puStops.Text = line.PUStops;
-                        employeeID.Text = line.EmployeeNumber;
-                        NDPPH.Text = line.NDPPH;
-                        SPM.Text = line.SPM;
-                        mILES.Text = line.Miles;
+                        planDay.Text = line2.PlanDay;
+                        paidDay.Text = line2.PaidDay;
+                        ovUn.Text = line2.OvUn;
+                        sPORH.Text = line2.SPORH;
+                        amTime.Text = line2.AM;
+                        pmTime.Text = line2.PM;
+                        delStops.Text = line2.DelStops;
+                        delPkgs.Text = line2.DelPkgs;
+                        puPkgs.Text = line2.PUPkgs;
+                        puStops.Text = line2.PUStops;
+                        employeeID.Text = line2.EmployeeNumber;
+                        NDPPH.Text = line2.NDPPH;
+                        SPM.Text = line2.SPM;
+                        mILES.Text = line2.Miles;
                         dateData();
                         break;
                     }
@@ -434,6 +457,7 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -497,6 +521,7 @@ namespace WindowsFormsApplication1
         {
             string data = File.ReadAllText("driverData.json");
             var driverData = JsonConvert.DeserializeObject<drvrData[]>(data);
+            
             foreach (var line in driverData)
             {
                 if (line.Drivername == comboBox1.Text)
@@ -526,7 +551,7 @@ namespace WindowsFormsApplication1
                         deleteAll();
                     }
                 }
-            }
+            }            
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -550,6 +575,14 @@ namespace WindowsFormsApplication1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            if (File.Exists("config.json"))
+            {
+                string jsonFile = File.ReadAllText("config.json");
+                var data = JsonConvert.DeserializeObject<mainConfig>(jsonFile);
+                bLDG.Text = data.Building;
+                sLIC.Text = data.SLIC;
+            }
+
             if (!File.Exists("driverData.json"))
             {
                 //nothing... more than likely file does not exist or first run
@@ -609,14 +642,25 @@ namespace WindowsFormsApplication1
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (!File.Exists("driverdateData.json"))
+            if (!File.Exists("driverdateData.json")){ }else{ File.Delete("driverdateData.json");}
+            if (!File.Exists("config.json"))
             {
-
+                mainConfig mConfig = new mainConfig();
+                mConfig.Building = bLDG.Text.Trim();
+                mConfig.SLIC = sLIC.Text.Trim();
+                var data = JsonConvert.SerializeObject(mConfig, Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText("config.json", data);
             }
             else
             {
-                File.Delete("driverdateData.json");
+                string jsonFile = File.ReadAllText("config.json");
+                var data = JsonConvert.DeserializeObject<mainConfig>(jsonFile);
+                data.Building = bLDG.Text.Trim();
+                data.SLIC = sLIC.Text.Trim();
+                var wdata = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
+                File.WriteAllText("config.json", wdata);
             }
+
         }
     }
 }
