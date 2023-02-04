@@ -247,6 +247,26 @@ namespace WindowsFormsApplication1
         private void button2_Click(object sender, EventArgs e)
         {
             driverData();
+            comboBox1.Items.Clear();
+            comboBox2.Items.Clear();
+            string data = File.ReadAllText("driverData.json");
+            var driverData2 = JsonConvert.DeserializeObject<drvrData[]>(data);
+            foreach (var line in driverData2)
+            {
+                comboBox2.Items.Add(line.Route);
+                comboBox1.Items.Add(line.Drivername);
+            }
+            object[] dItems = (from object o in comboBox2.Items select o).Distinct().ToArray();
+            comboBox2.Items.Clear();
+            comboBox2.Items.AddRange(dItems);
+            object[] dItems2 = (from object o in comboBox1.Items select o).Distinct().ToArray();
+            comboBox1.Items.Clear();
+            comboBox1.Items.AddRange(dItems2);
+            comboBox2.SelectedIndex = 0;
+            comboBox1.SelectedIndex = 0;
+            var DataTime = File.GetLastWriteTime("driverData.json");
+            dteTime.Text = "";
+            dteTime.Text = DataTime.ToString();
         }
 
         private void button3_Click(object sender, EventArgs e)
