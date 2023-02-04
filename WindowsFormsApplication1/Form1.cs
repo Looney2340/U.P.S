@@ -244,7 +244,7 @@ namespace WindowsFormsApplication1
                     }
                     else
                     {
-                        deleteAll();
+                        //deleteAll();
                     }
                 }
             }
@@ -335,7 +335,7 @@ namespace WindowsFormsApplication1
                     }
                     else
                     {
-                        deleteAll();
+                        //deleteAll();
                     }
                 }
             }
