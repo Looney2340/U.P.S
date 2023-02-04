@@ -45,6 +45,171 @@ namespace WindowsFormsApplication1
             public string NumDays { get; set; }
         }
 
+        public class dateDriver
+        {
+            public string Date { get; set; }
+            public string Driver { get; set; }
+            public string DelStops { get; set; }
+            public string DelPkgs { get; set; }
+            public string PUStops { get; set; }
+            public string PUPkgs { get; set; }
+            public string Miles { get; set; }
+            public string SPM { get; set; }
+            public string PlanDay { get; set; }
+            public string PaidDay { get; set; }
+            public string OvUn { get; set; }
+            public string SPORH { get; set; }
+            public string NDPPH { get; set; }
+            public string AM { get; set; }
+            public string PM { get; set; }
+            public string Route { get; set; }
+            public string EmployeeID { get; set; }
+        }
+
+        public void dateData()
+        {
+            Boolean detected = false;
+            int placeHolder = 0;
+            int driverLine = 0;
+            int i = 0;
+            listBox1.Items.Clear();
+            try
+            {
+                WebClient wClient = new WebClient();
+                var data = wClient.DownloadString($"https://pft.inside.ups.com/apps/DPSReports/SPperfomanceTrendMonthDtl.aspx?RTE={comboBox2.Text}&EMPID={employeeID.Text}&BLDG={bLDG.Text}&SLIC={sLIC.Text}");
+                HtmlAgilityPack.HtmlDocument hDoc = new HtmlAgilityPack.HtmlDocument();
+                hDoc.LoadHtml( data );
+
+                var tableQuery = from table in hDoc.DocumentNode.SelectNodes("//table").Cast<HtmlNode>()
+                                 from row in table.SelectNodes("tr").Cast<HtmlNode>()
+                                 from cell in row.SelectNodes("th|td").Cast<HtmlNode>()
+                                 select new { Table = table.Id, CellText = cell.InnerText };
+
+                List<dateDriver> drvrDate = new List<dateDriver>();
+
+                foreach (var line in tableQuery)
+                {
+                    if (line.CellText.ToString() == "DelDate")
+                    {
+                        detected = true;
+                        driverLine = placeHolder + 15;
+                    }
+                    else
+                    {
+                        if (detected == false)
+                        {
+                            placeHolder++;
+                        }
+                    }
+
+                    if (detected == true)
+                    {
+                        if (line.CellText.Length == 5 || line.CellText.Length == 6) 
+                        {
+                            if (line.CellText.Trim().Contains("Day") || line.CellText.Trim().Contains("Days"))
+                            {
+                                break;
+                            }
+                        }
+                        if (driverLine == placeHolder)
+                        {
+                            var driverA = new dateDriver() { Date = line.CellText.Trim() };
+                            drvrDate.Add(driverA);
+                        }
+
+                        if (driverLine + 1 == placeHolder)
+                        {
+                            drvrDate[i].Driver = line.CellText.Trim();
+                        }
+                        if (driverLine +2 == placeHolder)
+                        {
+                            drvrDate[i].DelStops = line.CellText.Trim();
+                        }
+                        if (driverLine + 3 == placeHolder)
+                        {
+                            drvrDate[i].DelPkgs = line.CellText.Trim();
+                        }
+                        if (driverLine + 4 == placeHolder)
+                        {
+                            drvrDate[i].PUStops = line.CellText.Trim();
+                        }
+                        if (driverLine + 5 == placeHolder)
+                        {
+                            drvrDate[i].PUPkgs = line.CellText.Trim();
+                        }
+                        if (driverLine + 6 == placeHolder)
+                        {
+                            drvrDate[i].Miles = line.CellText.Trim();
+                        }
+                        if (driverLine + 7 == placeHolder)
+                        {
+                            drvrDate[i].SPM = line.CellText.Trim();
+                        }
+                        if (driverLine + 8 == placeHolder)
+                        {
+                            drvrDate[i].PlanDay = line.CellText.Trim();
+                        }
+                        if (driverLine + 9 == placeHolder)
+                        {
+                            drvrDate[i].PaidDay = line.CellText.Trim();
+                        }
+                        if (driverLine + 10 == placeHolder)
+                        {
+                            drvrDate[i].OvUn = line.CellText.Trim();
+                        }
+                        if (driverLine + 11 == placeHolder)
+                        {
+                            drvrDate[i].SPORH = line.CellText.Trim();
+                        }
+                        if (driverLine + 12 == placeHolder)
+                        {
+                            drvrDate[i].NDPPH = line.CellText.Trim();
+                        }
+                        if (driverLine + 13 == placeHolder)
+                        {
+                            drvrDate[i].AM = line.CellText.Trim();
+                        }
+                        if (driverLine + 14 == placeHolder)
+                        {
+                            drvrDate[i].PM = line.CellText.Trim();
+                            drvrDate[i].Route = comboBox2.Text;
+                            drvrDate[i].EmployeeID = employeeID.Text;
+                            i++;
+                            placeHolder++;
+                            driverLine = placeHolder;
+                        }
+                        else
+                        {
+                            placeHolder++;
+                        }
+                    }
+
+                }
+
+                foreach (var lines in drvrDate)
+                {
+                    listBox1.Items.Add(lines.Date);
+                }
+
+                if (!File.Exists("driverdateData.json"))
+                {
+                    string jsonDrivers = JsonConvert.SerializeObject(drvrDate, Newtonsoft.Json.Formatting.Indented);
+                    File.WriteAllText("driverdateData.json", jsonDrivers);
+                }
+                else
+                {
+                    File.Delete("driverdateData.json");
+                    string jsonDrivers = JsonConvert.SerializeObject(drvrDate, Newtonsoft.Json.Formatting.Indented);
+                    File.WriteAllText("driverdateData.json", jsonDrivers);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "ERROR!", buttons: MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         public void driverData()
         {
             Boolean detected = false;
@@ -214,6 +379,25 @@ namespace WindowsFormsApplication1
             NDPPH.Text = "";
             mILES.Text = "";
             SPM.Text = "";
+            listBox1.Items.Clear();
+        }
+
+        public void deleteAll2()
+        {
+            planDay.Text = "";
+            paidDay.Text = "";
+            sPORH.Text = "";
+            ovUn.Text = "";
+            delPkgs.Text = "";
+            delStops.Text = "";
+            puPkgs.Text = "";
+            puStops.Text = "";
+            amTime.Text = "";
+            pmTime.Text = "";
+            employeeID.Text = "";
+            NDPPH.Text = "";
+            mILES.Text = "";
+            SPM.Text = "";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -241,10 +425,12 @@ namespace WindowsFormsApplication1
                         NDPPH.Text = line.NDPPH;
                         SPM.Text = line.SPM;
                         mILES.Text = line.Miles;
+                        dateData();
+                        break;
                     }
                     else
                     {
-                        //deleteAll();
+                        deleteAll();
                     }
                 }
             }
@@ -332,10 +518,12 @@ namespace WindowsFormsApplication1
                         NDPPH.Text = line.NDPPH;
                         SPM.Text = line.SPM;
                         mILES.Text = line.Miles;
+                        dateData();
+                        break;
                     }
                     else
                     {
-                        //deleteAll();
+                        deleteAll();
                     }
                 }
             }
@@ -388,6 +576,46 @@ namespace WindowsFormsApplication1
                 var DataTime = File.GetLastWriteTime("driverData.json");
                 dteTime.Text = "";
                 dteTime.Text = DataTime.ToString();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            deleteAll2();
+            string data = File.ReadAllText("driverdateData.json");
+            var driverData = JsonConvert.DeserializeObject<dateDriver[]>(data);
+
+            foreach (var date in driverData)
+            {
+                if (date.Date == listBox1.SelectedItem.ToString())
+                {
+                    delStops.Text = date.DelStops;
+                    delPkgs.Text = date.DelPkgs;
+                    puStops.Text = date.PUStops;
+                    puPkgs.Text = date.PUPkgs;
+                    mILES.Text = date.Miles;
+                    SPM.Text = date.SPM;
+                    NDPPH.Text = date.NDPPH;
+                    planDay.Text = date.PlanDay;
+                    paidDay.Text = date.PaidDay;
+                    ovUn.Text = date.OvUn;
+                    sPORH.Text = date.SPORH;
+                    amTime.Text = date.AM;
+                    pmTime.Text = date.PM;
+                    employeeID.Text = date.EmployeeID;
+                }
+            }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!File.Exists("driverdateData.json"))
+            {
+
+            }
+            else
+            {
+                File.Delete("driverdateData.json");
             }
         }
     }

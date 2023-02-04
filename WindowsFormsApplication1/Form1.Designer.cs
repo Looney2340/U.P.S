@@ -73,7 +73,11 @@
             this.mILES = new System.Windows.Forms.TextBox();
             this.NDPPH = new System.Windows.Forms.TextBox();
             this.SPM = new System.Windows.Forms.TextBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.button5 = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -497,6 +501,36 @@
             this.SPM.Size = new System.Drawing.Size(63, 26);
             this.SPM.TabIndex = 37;
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 20;
+            this.listBox1.Location = new System.Drawing.Point(6, 25);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(181, 224);
+            this.listBox1.TabIndex = 38;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(104, 255);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(83, 30);
+            this.button5.TabIndex = 39;
+            this.button5.Text = "Pull Date";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.listBox1);
+            this.groupBox2.Controls.Add(this.button5);
+            this.groupBox2.Location = new System.Drawing.Point(12, 360);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(197, 291);
+            this.groupBox2.TabIndex = 40;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = " ..:: Dates ::..";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -504,6 +538,7 @@
             this.BackColor = System.Drawing.Color.Beige;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1264, 740);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.SPM);
             this.Controls.Add(this.NDPPH);
             this.Controls.Add(this.mILES);
@@ -548,10 +583,12 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PFT 2 Week Trend";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -603,6 +640,9 @@
         private System.Windows.Forms.TextBox mILES;
         private System.Windows.Forms.TextBox NDPPH;
         private System.Windows.Forms.TextBox SPM;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
 
