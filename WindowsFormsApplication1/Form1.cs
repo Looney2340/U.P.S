@@ -211,6 +211,9 @@ namespace WindowsFormsApplication1
             amTime.Text = "";
             pmTime.Text = "";
             employeeID.Text = "";
+            NDPPH.Text = "";
+            mILES.Text = "";
+            SPM.Text = "";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -235,6 +238,9 @@ namespace WindowsFormsApplication1
                         puPkgs.Text = line.PUPkgs;
                         puStops.Text = line.PUStops;
                         employeeID.Text = line.EmployeeNumber;
+                        NDPPH.Text = line.NDPPH;
+                        SPM.Text = line.SPM;
+                        mILES.Text = line.Miles;
                     }
                     else
                     {
@@ -323,6 +329,9 @@ namespace WindowsFormsApplication1
                         puPkgs.Text = line.PUPkgs;
                         puStops.Text = line.PUStops;
                         employeeID.Text = line.EmployeeNumber;
+                        NDPPH.Text = line.NDPPH;
+                        SPM.Text = line.SPM;
+                        mILES.Text = line.Miles;
                     }
                     else
                     {
