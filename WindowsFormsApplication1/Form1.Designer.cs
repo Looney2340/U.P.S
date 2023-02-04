@@ -41,7 +41,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -60,12 +59,14 @@
             this.puPkgs = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.bLDG = new System.Windows.Forms.TextBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.sLIC = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
             this.dteTime = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.sLIC = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.bLDG = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.employeeID = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -204,17 +205,6 @@
             this.label9.Size = new System.Drawing.Size(118, 29);
             this.label9.TabIndex = 11;
             this.label9.Text = "Del Pkgs";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(614, 316);
-            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(160, 29);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "Send Agains";
             // 
             // label11
             // 
@@ -376,14 +366,39 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " ..:: CONFiG ::.. ";
             // 
-            // label14
+            // dteTime
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 31);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(54, 20);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "BLDG";
+            this.dteTime.Location = new System.Drawing.Point(447, 28);
+            this.dteTime.Name = "dteTime";
+            this.dteTime.Size = new System.Drawing.Size(213, 26);
+            this.dteTime.TabIndex = 5;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(354, 31);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(87, 20);
+            this.label16.TabIndex = 4;
+            this.label16.Text = "Data Date:";
+            // 
+            // sLIC
+            // 
+            this.sLIC.Location = new System.Drawing.Point(223, 28);
+            this.sLIC.Name = "sLIC";
+            this.sLIC.Size = new System.Drawing.Size(100, 26);
+            this.sLIC.TabIndex = 3;
+            this.sLIC.Text = "1166";
+            this.sLIC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(172, 31);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(45, 20);
+            this.label15.TabIndex = 2;
+            this.label15.Text = "SLIC";
             // 
             // bLDG
             // 
@@ -395,39 +410,32 @@
             this.bLDG.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.bLDG.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // label15
+            // label14
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(172, 31);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(45, 20);
-            this.label15.TabIndex = 2;
-            this.label15.Text = "SLIC";
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 31);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(54, 20);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "BLDG";
             // 
-            // sLIC
+            // label10
             // 
-            this.sLIC.Location = new System.Drawing.Point(223, 28);
-            this.sLIC.Name = "sLIC";
-            this.sLIC.Size = new System.Drawing.Size(100, 26);
-            this.sLIC.TabIndex = 3;
-            this.sLIC.Text = "1166";
-            this.sLIC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(614, 316);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(162, 29);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Employee ID";
             // 
-            // label16
+            // employeeID
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(354, 31);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(87, 20);
-            this.label16.TabIndex = 4;
-            this.label16.Text = "Data Date:";
-            // 
-            // dteTime
-            // 
-            this.dteTime.Location = new System.Drawing.Point(447, 28);
-            this.dteTime.Name = "dteTime";
-            this.dteTime.Size = new System.Drawing.Size(213, 26);
-            this.dteTime.TabIndex = 5;
+            this.employeeID.Location = new System.Drawing.Point(619, 348);
+            this.employeeID.Name = "employeeID";
+            this.employeeID.Size = new System.Drawing.Size(157, 26);
+            this.employeeID.TabIndex = 31;
             // 
             // Form1
             // 
@@ -436,6 +444,7 @@
             this.BackColor = System.Drawing.Color.Beige;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.ClientSize = new System.Drawing.Size(1264, 740);
+            this.Controls.Add(this.employeeID);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.puPkgs);
@@ -473,6 +482,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PFT 2 Week Trend";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -495,7 +505,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button button2;
@@ -520,6 +529,8 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox dteTime;
         private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox employeeID;
     }
 }
 

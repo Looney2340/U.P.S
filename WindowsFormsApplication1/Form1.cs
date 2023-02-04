@@ -210,6 +210,7 @@ namespace WindowsFormsApplication1
             puStops.Text = "";
             amTime.Text = "";
             pmTime.Text = "";
+            employeeID.Text = "";
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -233,6 +234,7 @@ namespace WindowsFormsApplication1
                         delPkgs.Text = line.DelPkgs;
                         puPkgs.Text = line.PUPkgs;
                         puStops.Text = line.PUStops;
+                        employeeID.Text = line.EmployeeNumber;
                     }
                     else
                     {
@@ -300,6 +302,7 @@ namespace WindowsFormsApplication1
                         delPkgs.Text = line.DelPkgs;
                         puPkgs.Text = line.PUPkgs;
                         puStops.Text = line.PUStops;
+                        employeeID.Text = line.EmployeeNumber;
                     }
                     else
                     {
@@ -326,6 +329,37 @@ namespace WindowsFormsApplication1
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (!File.Exists("driverData.json"))
+            {
+                //nothing... more than likely file does not exist or first run
+            }
+            else
+            {
+                comboBox1.Items.Clear();
+                comboBox2.Items.Clear();
+                string data = File.ReadAllText("driverData.json");
+                var driverData = JsonConvert.DeserializeObject<drvrData[]>(data);
+                foreach (var line in driverData)
+                {
+                    comboBox2.Items.Add(line.Route);
+                    comboBox1.Items.Add(line.Drivername);
+                }
+                object[] dItems = (from object o in comboBox2.Items select o).Distinct().ToArray();
+                comboBox2.Items.Clear();
+                comboBox2.Items.AddRange(dItems);
+                object[] dItems2 = (from object o in comboBox1.Items select o).Distinct().ToArray();
+                comboBox1.Items.Clear();
+                comboBox1.Items.AddRange(dItems2);
+                comboBox2.SelectedIndex = 0;
+                comboBox1.SelectedIndex = 0;
+                var DataTime = File.GetLastWriteTime("driverData.json");
+                dteTime.Text = "";
+                dteTime.Text = DataTime.ToString();
+            }
         }
     }
 }
