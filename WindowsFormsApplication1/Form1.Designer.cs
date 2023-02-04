@@ -82,6 +82,14 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.driverthirty = new System.Windows.Forms.ComboBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.thirdaydteTime = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -89,6 +97,8 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -366,6 +376,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label21);
+            this.groupBox1.Controls.Add(this.thirdaydteTime);
             this.groupBox1.Controls.Add(this.dteTime);
             this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.sLIC);
@@ -374,14 +386,14 @@
             this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Location = new System.Drawing.Point(16, 25);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(669, 71);
+            this.groupBox1.Size = new System.Drawing.Size(735, 114);
             this.groupBox1.TabIndex = 30;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " ..:: CONFiG ::.. ";
             // 
             // dteTime
             // 
-            this.dteTime.Location = new System.Drawing.Point(447, 28);
+            this.dteTime.Location = new System.Drawing.Point(487, 28);
             this.dteTime.Name = "dteTime";
             this.dteTime.Size = new System.Drawing.Size(213, 26);
             this.dteTime.TabIndex = 5;
@@ -391,9 +403,9 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(354, 31);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(87, 20);
+            this.label16.Size = new System.Drawing.Size(127, 20);
             this.label16.TabIndex = 4;
-            this.label16.Text = "Data Date:";
+            this.label16.Text = "2 Wk Data Date:";
             // 
             // sLIC
             // 
@@ -601,6 +613,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox5);
+            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.button6);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
@@ -643,6 +658,80 @@
             this.label2.TabIndex = 30;
             this.label2.Text = "UPS Driver PFT Tool";
             // 
+            // driverthirty
+            // 
+            this.driverthirty.FormattingEnabled = true;
+            this.driverthirty.Location = new System.Drawing.Point(79, 31);
+            this.driverthirty.Name = "driverthirty";
+            this.driverthirty.Size = new System.Drawing.Size(249, 28);
+            this.driverthirty.TabIndex = 42;
+            this.driverthirty.SelectedIndexChanged += new System.EventHandler(this.driverthirty_SelectedIndexChanged);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label20);
+            this.groupBox3.Controls.Add(this.driverthirty);
+            this.groupBox3.Location = new System.Drawing.Point(6, 6);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(348, 76);
+            this.groupBox3.TabIndex = 43;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Driver Selection";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 34);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(54, 20);
+            this.label20.TabIndex = 43;
+            this.label20.Text = "Driver:";
+            // 
+            // thirdaydteTime
+            // 
+            this.thirdaydteTime.Location = new System.Drawing.Point(487, 60);
+            this.thirdaydteTime.Name = "thirdaydteTime";
+            this.thirdaydteTime.Size = new System.Drawing.Size(213, 26);
+            this.thirdaydteTime.TabIndex = 6;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(340, 63);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(141, 20);
+            this.label21.TabIndex = 7;
+            this.label21.Text = "30 Day Data Date:";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.listBox2);
+            this.groupBox4.Location = new System.Drawing.Point(6, 88);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(189, 249);
+            this.groupBox4.TabIndex = 44;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Dates";
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.ItemHeight = 20;
+            this.listBox2.Location = new System.Drawing.Point(6, 19);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(177, 224);
+            this.listBox2.TabIndex = 0;
+            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Location = new System.Drawing.Point(201, 88);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(792, 243);
+            this.groupBox5.TabIndex = 45;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Stats";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -672,6 +761,9 @@
             this.tabPage3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -731,6 +823,14 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.ComboBox driverthirty;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox thirdaydteTime;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.GroupBox groupBox5;
     }
 }
 
