@@ -1097,6 +1097,7 @@ namespace WindowsFormsApplication1
             try
             {
                 listBox2.Items.Clear();
+                routeThirty.Items.Clear();
                 string data = File.ReadAllText("30daydriverData.json");
                 var driverData = JsonConvert.DeserializeObject<thirtydaydriverData[]>(data);
 
@@ -1110,6 +1111,7 @@ namespace WindowsFormsApplication1
                         foreach (var dtl in driverDetail)
                         {
                             listBox2.Items.Add(dtl.delDate);
+                            routeThirty.Items.Add(dtl.route);
                         }
                         found = true;
                     }
@@ -1118,6 +1120,10 @@ namespace WindowsFormsApplication1
                         break;
                     }
                 }
+                object[] dItems = (from object o in routeThirty.Items select o).Distinct().ToArray();
+                routeThirty.Items.Clear();
+                routeThirty.Items.AddRange(dItems);
+                routeThirty.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -1140,6 +1146,7 @@ namespace WindowsFormsApplication1
                     list.Add($"Plan Day: {dtl.planDay}");
                     list.Add($"Paid Day: {dtl.paidDay}");
                     list.Add($"Ov/Un: {dtl.OvUn}");
+                    list.Add($"On Road Hours: {dtl.onroadHours}");
                     list.Add($"Delivery Stops: {dtl.delStops}");
                     list.Add($"Delivery Packages: {dtl.delPkgs}");
                     list.Add($"Pickup Stops: {dtl.puStops}");
@@ -1150,6 +1157,46 @@ namespace WindowsFormsApplication1
                     list.Add($"PM Time: {dtl.PM}");
                     var message = string.Join(Environment.NewLine, list);
                     MessageBox.Show(message);
+                }
+            }
+        }
+
+        private void routeThirty_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<string> list = new List<string>();
+            string drvrInfo = File.ReadAllText("30daydriverData.json");
+            var driver30Info = JsonConvert.DeserializeObject<thirtydaydriverData[]>(drvrInfo);
+            foreach (var dtl in driver30Info)
+            {
+                if (dtl.driverName == driverthirty.Text)
+                {
+                    if (dtl.route == routeThirty.Text)
+                    {
+                        list.Add($"Driver: {dtl.driverName}");
+                        list.Add($"Employee ID: {dtl.employeeID}");
+                        list.Add($"Sup Group: {dtl.supGroup}");
+                        list.Add($"PayCode: {dtl.paycode}");
+                        list.Add($"Days on Route: {dtl.dayWork}");
+                        list.Add($"Route: {dtl.route}");
+                        list.Add($"Paid Day: {dtl.paidDay}");
+                        list.Add($"Plan Day: {dtl.planDay}");
+                        list.Add($"Ov/Un: {dtl.OvUn}");
+                        list.Add($"SPORH: {dtl.SPORH}");
+                        list.Add($"Miles: {dtl.miles}");
+                        list.Add($"SPM: {dtl.SPM}");
+                        list.Add($"Del Stops: {dtl.delStops}");
+                        list.Add($"Del Pkgs: {dtl.delPkgs}");
+                        list.Add($"PU Stops: {dtl.puStops}");
+                        list.Add($"PU Pkgs: {dtl.puPkgs}");
+                        list.Add($"Paid SA Percent: {dtl.paidSApercent}");
+                        list.Add($"AM: {dtl.AM}");
+                        list.Add($"PM: {dtl.PM}");
+                        list.Add($"On Road Hours: {dtl.onroadHours}");
+                        list.Add($"NDPPH: {dtl.NDPPH}");
+                        list.Add($"Helper Hours: {dtl.helperHours}");
+                        var message = string.Join(Environment.NewLine, list);
+                        MessageBox.Show(message);
+                    }
                 }
             }
         }
