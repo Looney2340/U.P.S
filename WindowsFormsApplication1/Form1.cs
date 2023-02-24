@@ -15,6 +15,7 @@ using Newtonsoft;
 using HtmlAgilityPack;
 using System.Web;
 using System.Security.Cryptography.X509Certificates;
+using System.Diagnostics;
 
 namespace WindowsFormsApplication1
 {    public partial class Form1 : Form
@@ -786,6 +787,28 @@ namespace WindowsFormsApplication1
             SPM.Text = "";
         }
 
+        public void clear30day()
+        {
+            delPkgs30.Text = "";
+            delStops30.Text = "";
+            puPkgs30.Text = "";
+            puStops30.Text = "";
+            ndpph30.Text = "";
+            employeeID30.Text = "";
+            daysonRoute30.Text = "";
+            planDay30.Text = "";
+            paidDay30.Text = "";
+            ovUn30.Text = "";
+            sporh30.Text = "";
+            miles30.Text = "";
+            spm30.Text = "";
+            sendagainper30.Text = "";
+            amTime30.Text = "";
+            pmTime30.Text = "";
+            onroadHours30.Text = "";
+            helperHours30.Text = "";
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             string data = File.ReadAllText("driverData.json");
@@ -1098,6 +1121,7 @@ namespace WindowsFormsApplication1
             {
                 listBox2.Items.Clear();
                 routeThirty.Items.Clear();
+                supThirty.Items.Clear();
                 string data = File.ReadAllText("30daydriverData.json");
                 var driverData = JsonConvert.DeserializeObject<thirtydaydriverData[]>(data);
 
@@ -1112,6 +1136,7 @@ namespace WindowsFormsApplication1
                         {
                             listBox2.Items.Add(dtl.delDate);
                             routeThirty.Items.Add(dtl.route);
+                            supThirty.Items.Add(dtl.supGroup);
                         }
                         found = true;
                     }
@@ -1124,6 +1149,10 @@ namespace WindowsFormsApplication1
                 routeThirty.Items.Clear();
                 routeThirty.Items.AddRange(dItems);
                 routeThirty.SelectedIndex = 0;
+                object[] dItems2 = (from object o in supThirty.Items select o).Distinct().ToArray();
+                supThirty.Items.Clear();
+                supThirty.Items.AddRange(dItems2);
+                supThirty.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
@@ -1140,9 +1169,11 @@ namespace WindowsFormsApplication1
             {
                 if (listBox2.SelectedItem.ToString() == dtl.delDate)
                 {
+                    clear30day();
                     list.Add($"Route: {dtl.route}");
                     list.Add($"Employee: {dtl.driverName}");
                     list.Add($"Employee ID: {dtl.employeeID}");
+                    list.Add($"Supervisor Group: {dtl.supGroup}");
                     list.Add($"Plan Day: {dtl.planDay}");
                     list.Add($"Paid Day: {dtl.paidDay}");
                     list.Add($"Ov/Un: {dtl.OvUn}");
@@ -1156,12 +1187,77 @@ namespace WindowsFormsApplication1
                     list.Add($"AM Time: {dtl.AM}");
                     list.Add($"PM Time: {dtl.PM}");
                     var message = string.Join(Environment.NewLine, list);
-                    MessageBox.Show(message);
+                    MessageBox.Show(message, $"{dtl.driverName} - {listBox2.Text}", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
                 }
             }
         }
 
         private void routeThirty_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //supThirty.Items.Clear();
+            List<string> list = new List<string>();
+            string drvrInfo = File.ReadAllText("30daydriverData.json");
+            var driver30Info = JsonConvert.DeserializeObject<thirtydaydriverData[]>(drvrInfo);
+            foreach (var dtl in driver30Info)
+            {
+                if (dtl.driverName == driverthirty.Text)
+                {
+                    if (dtl.route == routeThirty.Text)
+                    {
+                        if (dtl.supGroup == supThirty.Text)
+                        {
+                            clear30day();
+                            employeeID30.Text = dtl.employeeID.ToString();
+                            daysonRoute30.Text = dtl.dayWork;
+                            paidDay30.Text = dtl.paidDay.ToString();
+                            planDay30.Text = dtl.planDay.ToString();
+                            ovUn30.Text = dtl.OvUn;
+                            sporh30.Text = dtl.SPORH;
+                            spm30.Text = dtl.SPM;
+                            miles30.Text = dtl.miles;
+                            delPkgs30.Text = dtl.delPkgs;
+                            delStops30.Text = dtl.delStops;
+                            puPkgs30.Text = dtl.puPkgs;
+                            puStops30.Text = dtl.puStops;
+                            sendagainper30.Text = dtl.paidSApercent;
+                            amTime30.Text = dtl.AM;
+                            pmTime30.Text = dtl.PM;
+                            onroadHours30.Text = dtl.onroadHours;
+                            ndpph30.Text = dtl.NDPPH;
+                            helperHours30.Text = dtl.helperHours;
+                            /*
+                            list.Add($"Driver: {dtl.driverName}");
+                            list.Add($"Employee ID: {dtl.employeeID}");
+                            list.Add($"Sup Group: {dtl.supGroup}");
+                            list.Add($"PayCode: {dtl.paycode}");
+                            list.Add($"Days on Route: {dtl.dayWork}");
+                            list.Add($"Route: {dtl.route}");
+                            list.Add($"Paid Day: {dtl.paidDay}");
+                            list.Add($"Plan Day: {dtl.planDay}");
+                            list.Add($"Ov/Un: {dtl.OvUn}");
+                            list.Add($"SPORH: {dtl.SPORH}");
+                            list.Add($"Miles: {dtl.miles}");
+                            list.Add($"SPM: {dtl.SPM}");
+                            list.Add($"Del Stops: {dtl.delStops}");
+                            list.Add($"Del Pkgs: {dtl.delPkgs}");
+                            list.Add($"PU Stops: {dtl.puStops}");
+                            list.Add($"PU Pkgs: {dtl.puPkgs}");
+                            list.Add($"Paid SA Percent: {dtl.paidSApercent}");
+                            list.Add($"AM: {dtl.AM}");
+                            list.Add($"PM: {dtl.PM}");
+                            list.Add($"On Road Hours: {dtl.onroadHours}");
+                            list.Add($"NDPPH: {dtl.NDPPH}");
+                            list.Add($"Helper Hours: {dtl.helperHours}");
+                            var message = string.Join(Environment.NewLine, list);
+                            MessageBox.Show(message, "Driver Infomation by Day", MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+                            */
+                        }
+                    }
+                }
+            }
+        }
+
+        private void supThirty_SelectedIndexChanged(object sender, EventArgs e)
         {
             List<string> list = new List<string>();
             string drvrInfo = File.ReadAllText("30daydriverData.json");
@@ -1172,32 +1268,65 @@ namespace WindowsFormsApplication1
                 {
                     if (dtl.route == routeThirty.Text)
                     {
-                        list.Add($"Driver: {dtl.driverName}");
-                        list.Add($"Employee ID: {dtl.employeeID}");
-                        list.Add($"Sup Group: {dtl.supGroup}");
-                        list.Add($"PayCode: {dtl.paycode}");
-                        list.Add($"Days on Route: {dtl.dayWork}");
-                        list.Add($"Route: {dtl.route}");
-                        list.Add($"Paid Day: {dtl.paidDay}");
-                        list.Add($"Plan Day: {dtl.planDay}");
-                        list.Add($"Ov/Un: {dtl.OvUn}");
-                        list.Add($"SPORH: {dtl.SPORH}");
-                        list.Add($"Miles: {dtl.miles}");
-                        list.Add($"SPM: {dtl.SPM}");
-                        list.Add($"Del Stops: {dtl.delStops}");
-                        list.Add($"Del Pkgs: {dtl.delPkgs}");
-                        list.Add($"PU Stops: {dtl.puStops}");
-                        list.Add($"PU Pkgs: {dtl.puPkgs}");
-                        list.Add($"Paid SA Percent: {dtl.paidSApercent}");
-                        list.Add($"AM: {dtl.AM}");
-                        list.Add($"PM: {dtl.PM}");
-                        list.Add($"On Road Hours: {dtl.onroadHours}");
-                        list.Add($"NDPPH: {dtl.NDPPH}");
-                        list.Add($"Helper Hours: {dtl.helperHours}");
-                        var message = string.Join(Environment.NewLine, list);
-                        MessageBox.Show(message);
+                        if (dtl.supGroup == supThirty.Text)
+                        {
+                            /*
+                            list.Add($"Driver: {dtl.driverName}");
+                            list.Add($"Employee ID: {dtl.employeeID}");
+                            list.Add($"Sup Group: {dtl.supGroup}");
+                            list.Add($"PayCode: {dtl.paycode}");
+                            list.Add($"Days on Route: {dtl.dayWork}");
+                            list.Add($"Route: {dtl.route}");
+                            list.Add($"Paid Day: {dtl.paidDay}");
+                            list.Add($"Plan Day: {dtl.planDay}");
+                            list.Add($"Ov/Un: {dtl.OvUn}");
+                            list.Add($"SPORH: {dtl.SPORH}");
+                            list.Add($"Miles: {dtl.miles}");
+                            list.Add($"SPM: {dtl.SPM}");
+                            list.Add($"Del Stops: {dtl.delStops}");
+                            list.Add($"Del Pkgs: {dtl.delPkgs}");
+                            list.Add($"PU Stops: {dtl.puStops}");
+                            list.Add($"PU Pkgs: {dtl.puPkgs}");
+                            list.Add($"Paid SA Percent: {dtl.paidSApercent}");
+                            list.Add($"AM: {dtl.AM}");
+                            list.Add($"PM: {dtl.PM}");
+                            list.Add($"On Road Hours: {dtl.onroadHours}");
+                            list.Add($"NDPPH: {dtl.NDPPH}");
+                            list.Add($"Helper Hours: {dtl.helperHours}");
+                            var message = string.Join(Environment.NewLine, list);
+                            MessageBox.Show(message);
+                            */
+                            clear30day();
+                            employeeID30.Text = dtl.employeeID.ToString();
+                            daysonRoute30.Text = dtl.dayWork;
+                            paidDay30.Text = dtl.paidDay.ToString();
+                            planDay30.Text = dtl.planDay.ToString();
+                            ovUn30.Text = dtl.OvUn;
+                            sporh30.Text = dtl.SPORH;
+                            spm30.Text = dtl.SPM;
+                            miles30.Text = dtl.miles;
+                            delPkgs30.Text = dtl.delPkgs;
+                            delStops30.Text = dtl.delStops;
+                            puPkgs30.Text = dtl.puPkgs;
+                            puStops30.Text = dtl.puStops;
+                            sendagainper30.Text = dtl.paidSApercent;
+                            amTime30.Text = dtl.AM;
+                            pmTime30.Text = dtl.PM;
+                            onroadHours30.Text = dtl.onroadHours;
+                            ndpph30.Text = dtl.NDPPH;
+                            helperHours30.Text = dtl.helperHours;
+                        }
                     }
                 }
+            }
+        }
+
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
     }
