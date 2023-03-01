@@ -53,7 +53,6 @@ namespace WindowsFormsApplication1
             public string PM { get; set; }
             public string NumDays { get; set; }
         }
-
         public class dateDriver
         {
             public string Date { get; set; }
@@ -100,7 +99,6 @@ namespace WindowsFormsApplication1
             public string NDPPH { get; set; }
             public string helperHours { get; set; }
         }
-
         public class thirtydaydriverData
         {
             public string driverName { get; set; }
@@ -126,6 +124,71 @@ namespace WindowsFormsApplication1
             public string onroadHours { get; set; }
             public string NDPPH { get; set; }
             public string helperHours { get; set; }
+        }
+        public class ORSS
+        {
+            public string AssignmentValdationCode { get; set; }
+            public string BreakDuration { get; set; }
+            public Boolean CanEdit { get; set; }
+            public string ContractualLunch { get; set; }
+            public string DispatchStatusCode { get; set; }
+            public string DisplayBreakDuration { get; set; }
+            public string DisplayStartTime { get; set; }
+            public string DriverStatus { get; set; }
+            public string DriverType { get; set; }
+            public string DriverTypeCode { get; set; }
+            public Boolean DynamicRoute { get; set; }
+            public string EDDStatus { get; set; }
+            public string ETAAdjMaxLimit { get; set; }
+            public string EmployeeNumber { get; set; }
+            public string FirstName { get; set;}
+            public string HelperHours { get; set; }
+            public string ID { get; set; }
+            public string LastName { get; set; }
+            public string LeaveTime { get; set; }
+            public string LoadAreaName { get; set; }
+            public string LoadPosition { get; set; }
+            public string LoggedInUser { get; set; }
+            public string LoginTime { get; set; }
+            public string ManifestMaster { get; set; }
+            public string ManifestSourceRole { get; set; }
+            public string ManifestStatus { get; set; }
+            public string Nickname { get; set; }
+            public string OrganizationNumber { get; set; }
+            public string PasVersion { get; set; }
+            public string PayCode { get; set; }
+            public string PerformanceHours { get; set; }
+            public plannedTime PlannedTimecard { get; set; }    
+            public string PreloadPASVersionNumber { get; set; }
+            public string PreloadReferentNumber { get; set; }
+            public string PreloadReferrant { get; set; }
+            public string PreloadSortDate { get; set; }
+            public string PreloadSortDateForDisplay { get; set; }
+            public string PreloadSystemNumber { get; set; }
+            public string PreloadUniqueIdentifier { get; set; }
+            public string RouteName { get; set; }
+            public string RouteStatusCode { get; set; }
+            public string RouteType { get; set; }
+            public string RouteUniqueIdentifier { get; set; }
+            public string ServiceProviderType { get; set; }
+            public string ServiceProviderTypeMean { get; set; }
+            public string ServiceProviderTypeVal { get; set; }
+            public string SortMaster { get; set; }
+            public string SortServiceDate { get; set; }
+            public string SortStartTime { get; set; }
+            public string StartTime { get; set; }
+            public string SupGroup { get; set; }
+            public string SupervisorGroup { get; set; }
+            public string TargetPaidHours { get; set; }
+            public string abSorts { get; set; }
+            public string preloadId { get; set; }
+        }
+
+        public class plannedTime
+        {
+            public string DriverType { get; set; }
+            public string PayCode { get; set; }
+            public string SupGroup { get; set; }
         }
 
         public void dateData()
@@ -1327,6 +1390,45 @@ namespace WindowsFormsApplication1
             {
                 ReleaseCapture();
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
+        private void orssPull_Click(object sender, EventArgs e)
+        {
+            listBox3.Items.Clear();
+            WebClient wClient = new WebClient();
+            string pull = wClient.DownloadString($"{textBox1.Text}");
+            var jsonCon = JsonConvert.DeserializeObject<ORSS[]>(pull);
+
+            foreach ( var item in jsonCon)
+            {
+                listBox3.Items.Add($"{item.RouteName} - {item.LastName}, {item.FirstName} - Sup Group: {item.PlannedTimecard.SupGroup}");
+            }
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<string> list = new List<string>();
+            WebClient wClient = new WebClient();
+            string pull = wClient.DownloadString($"{textBox1.Text}");
+            var jsonCon = JsonConvert.DeserializeObject<ORSS[]>(pull);
+            foreach (var item in jsonCon)
+            {
+                if (listBox3.Text == $"{item.LastName}, {item.FirstName}")
+                {
+                    list.Add($"Supervisor Group: {item.SupervisorGroup}");
+                    list.Add($"Pay Code: {item.PayCode}");
+                    list.Add($"Driver Type: {item.DriverTypeCode}");
+                    list.Add($"Nickname: {item.Nickname}");
+                    list.Add($"Employee ID: {item.ID}");
+                    var message = string.Join(Environment.NewLine, list);
+                    MessageBox.Show(message, $"{item.LastName}, {item.FirstName} Information", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+                }
             }
         }
     }
