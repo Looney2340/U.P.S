@@ -1427,18 +1427,38 @@ namespace WindowsFormsApplication1
             List<string> list = new List<string>();
             WebClient wClient = new WebClient();
             string pull = wClient.DownloadString($"{textBox1.Text}");
+            if (textBox1.Text.Substring(0, 4).Contains("http"))
+            {
+                var fil = File.Create("dump.txt");
+                fil.Close();
+                pull = pull.Remove(0, 1);
+                pull = pull.Remove(pull.Length - 1, 1);
+                pull = pull.Replace("\\", "");
+                File.WriteAllText("dump.txt", pull);
+            }
             var jsonCon = JsonConvert.DeserializeObject<ORSS[]>(pull);
             foreach (var item in jsonCon)
             {
-                if (listBox3.Text == $"{item.LastName}, {item.FirstName}")
+                if (listBox3.Text.Contains($"{item.LastName}, {item.FirstName}"))
                 {
-                    list.Add($"Supervisor Group: {item.SupervisorGroup}");
-                    list.Add($"Pay Code: {item.PayCode}");
-                    list.Add($"Driver Type: {item.DriverTypeCode}");
-                    list.Add($"Nickname: {item.Nickname}");
-                    list.Add($"Employee ID: {item.ID}");
-                    var message = string.Join(Environment.NewLine, list);
-                    MessageBox.Show(message, $"{item.LastName}, {item.FirstName} Information", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+                    if (item.LastName == null) { }
+                    else
+                    {
+                        list.Add($"Name: {item.LastName}, {item.FirstName}");
+                        list.Add($"Employee ID: {item.ID}");
+                        list.Add($"Pay Code: {item.PayCode}");
+                        list.Add($"Route: {item.RouteName}");
+                        list.Add($"Bay: {item.LoadAreaName}");
+                        list.Add($"Load Name: {item.LoadPosition}");
+                        list.Add($"Start Time: {item.DisplayStartTime}");
+                        list.Add($"Planned Sup Group: {item.PlannedTimecard.SupGroup}");
+                        list.Add($"Supervisor Group: {item.SupervisorGroup}");
+                        list.Add($"SLIC: {item.OrganizationNumber}");
+                        list.Add($"Target Paid Hours: {item.TargetPaidHours}");
+                        list.Add($"Target Performance Hours: {item.PerformanceHours}");
+                        var message = string.Join(Environment.NewLine, list);
+                        MessageBox.Show(message, $"{item.LastName}, {item.FirstName} Information", buttons: MessageBoxButtons.OK, icon: MessageBoxIcon.Information);
+                    }
                 }
             }
         }
