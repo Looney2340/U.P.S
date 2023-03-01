@@ -1401,12 +1401,12 @@ namespace WindowsFormsApplication1
 
             if (textBox1.Text.Substring(0, 4).Contains("http"))
             {
-                var fil = File.Create("dump.txt");
-                fil.Close();
+                //var fil = File.Create("dump.txt");
+                //fil.Close();
                 pull = pull.Remove(0, 1);
                 pull = pull.Remove(pull.Length - 1, 1);
                 pull = pull.Replace("\\", "");
-                File.WriteAllText("dump.txt", pull);
+                //File.WriteAllText("dump.txt", pull);
             }       
             
             var jsonCon = JsonConvert.DeserializeObject<ORSS[]>(pull);
@@ -1429,12 +1429,12 @@ namespace WindowsFormsApplication1
             string pull = wClient.DownloadString($"{textBox1.Text}");
             if (textBox1.Text.Substring(0, 4).Contains("http"))
             {
-                var fil = File.Create("dump.txt");
-                fil.Close();
+                //var fil = File.Create("dump.txt");
+                //fil.Close();
                 pull = pull.Remove(0, 1);
                 pull = pull.Remove(pull.Length - 1, 1);
                 pull = pull.Replace("\\", "");
-                File.WriteAllText("dump.txt", pull);
+                //File.WriteAllText("dump.txt", pull);
             }
             var jsonCon = JsonConvert.DeserializeObject<ORSS[]>(pull);
             foreach (var item in jsonCon)
