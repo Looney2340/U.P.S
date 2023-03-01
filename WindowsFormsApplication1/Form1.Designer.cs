@@ -129,12 +129,12 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label20 = new System.Windows.Forms.Label();
             this.driverthirty = new System.Windows.Forms.ComboBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.listBox3 = new System.Windows.Forms.ListBox();
+            this.orssPull = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.orssPull = new System.Windows.Forms.Button();
-            this.listBox3 = new System.Windows.Forms.ListBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -148,8 +148,8 @@
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -1172,6 +1172,45 @@
             this.driverthirty.TabIndex = 42;
             this.driverthirty.SelectedIndexChanged += new System.EventHandler(this.driverthirty_SelectedIndexChanged);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.textBox1);
+            this.tabPage4.Controls.Add(this.listBox3);
+            this.tabPage4.Controls.Add(this.orssPull);
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1121, 343);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "ORSS Tool";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(363, 16);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(733, 26);
+            this.textBox1.TabIndex = 2;
+            // 
+            // listBox3
+            // 
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.ItemHeight = 20;
+            this.listBox3.Location = new System.Drawing.Point(3, 16);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(354, 324);
+            this.listBox3.TabIndex = 1;
+            this.listBox3.SelectedIndexChanged += new System.EventHandler(this.listBox3_SelectedIndexChanged);
+            // 
+            // orssPull
+            // 
+            this.orssPull.Location = new System.Drawing.Point(987, 291);
+            this.orssPull.Name = "orssPull";
+            this.orssPull.Size = new System.Drawing.Size(109, 34);
+            this.orssPull.TabIndex = 0;
+            this.orssPull.Text = "Pull ORSS";
+            this.orssPull.UseVisualStyleBackColor = true;
+            this.orssPull.Click += new System.EventHandler(this.orssPull_Click);
+            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Goldenrod;
@@ -1194,45 +1233,6 @@
             this.label2.Size = new System.Drawing.Size(296, 32);
             this.label2.TabIndex = 30;
             this.label2.Text = "UPS Driver PFT Tool";
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.textBox1);
-            this.tabPage4.Controls.Add(this.listBox3);
-            this.tabPage4.Controls.Add(this.orssPull);
-            this.tabPage4.Location = new System.Drawing.Point(4, 29);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1121, 343);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "ORSS Tool";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // orssPull
-            // 
-            this.orssPull.Location = new System.Drawing.Point(987, 291);
-            this.orssPull.Name = "orssPull";
-            this.orssPull.Size = new System.Drawing.Size(109, 34);
-            this.orssPull.TabIndex = 0;
-            this.orssPull.Text = "Pull ORSS";
-            this.orssPull.UseVisualStyleBackColor = true;
-            this.orssPull.Click += new System.EventHandler(this.orssPull_Click);
-            // 
-            // listBox3
-            // 
-            this.listBox3.FormattingEnabled = true;
-            this.listBox3.ItemHeight = 20;
-            this.listBox3.Location = new System.Drawing.Point(3, 16);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(354, 324);
-            this.listBox3.TabIndex = 1;
-            this.listBox3.SelectedIndexChanged += new System.EventHandler(this.listBox3_SelectedIndexChanged);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(363, 16);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(733, 26);
-            this.textBox1.TabIndex = 2;
             // 
             // Form1
             // 
@@ -1272,10 +1272,10 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
