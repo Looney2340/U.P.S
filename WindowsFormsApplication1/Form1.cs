@@ -183,13 +183,13 @@ namespace WindowsFormsApplication1
             public string abSorts { get; set; }
             public string preloadId { get; set; }
         }
-
         public class plannedTime
         {
             public string DriverType { get; set; }
             public string PayCode { get; set; }
             public string SupGroup { get; set; }
         }
+
 
         public void dateData()
         {
@@ -1042,6 +1042,8 @@ namespace WindowsFormsApplication1
                 var data = JsonConvert.DeserializeObject<mainConfig>(jsonFile);
                 bLDG.Text = data.Building;
                 sLIC.Text = data.SLIC;
+                textBox1.Text = data.Building;
+                textBox2.Text = data.SLIC;
             }
 
             if (!File.Exists("30daydriverData.json"))
@@ -1396,21 +1398,24 @@ namespace WindowsFormsApplication1
         private void orssPull_Click(object sender, EventArgs e)
         {
             listBox3.Items.Clear();
+            DateTime dt = DateTime.Now;
+            MessageBox.Show($"{dt.ToString("yyyy-MM-dd")}");
             WebClient wClient = new WebClient();
-            string pull = wClient.DownloadString($"{textBox1.Text}");
+            string pull = wClient.DownloadString($"https://orion-load-balancer.ups.com:18421/ORSS/US/{textBox1.Text}?Slic={textBox2.Text}&Date={dt.ToString("yyyy-MM-dd")}&hostingAppName=ODSE&machineAddress=undefined");
+            //https://orion-load-balancer.ups.com:18421/ORSS/US/NYSPR?Slic=1166&Date=2023-03-03&hostingAppName=ODSE&machineAddress=undefined
 
-            if (textBox1.Text.Substring(0, 4).Contains("http"))
-            {
                 //var fil = File.Create("dump.txt");
                 //fil.Close();
                 pull = pull.Remove(0, 1);
                 pull = pull.Remove(pull.Length - 1, 1);
                 pull = pull.Replace("\\", "");
                 //File.WriteAllText("dump.txt", pull);
-            }       
+                   
             
             var jsonCon = JsonConvert.DeserializeObject<ORSS[]>(pull);
-
+            preloadID.Text = jsonCon[0].PreloadReferentNumber.ToString();
+            orssSLIC.Text = jsonCon[0].OrganizationNumber.ToString();
+            
             foreach ( var item in jsonCon)
             {
                 listBox3.Items.Add($"{item.RouteName} - {item.LastName}, {item.FirstName} - Sup Group: {item.PlannedTimecard.SupGroup}");

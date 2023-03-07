@@ -135,6 +135,16 @@
             this.orssPull = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
+            this.preloadID = new System.Windows.Forms.TextBox();
+            this.preloadRef = new System.Windows.Forms.Label();
+            this.label39 = new System.Windows.Forms.Label();
+            this.orssSLIC = new System.Windows.Forms.TextBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.orssMneumonic = new System.Windows.Forms.TextBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -150,6 +160,7 @@
             this.groupBox3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboBox1
@@ -1174,9 +1185,14 @@
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.textBox1);
+            this.tabPage4.Controls.Add(this.groupBox10);
+            this.tabPage4.Controls.Add(this.label40);
+            this.tabPage4.Controls.Add(this.orssMneumonic);
+            this.tabPage4.Controls.Add(this.label39);
+            this.tabPage4.Controls.Add(this.orssSLIC);
+            this.tabPage4.Controls.Add(this.preloadRef);
+            this.tabPage4.Controls.Add(this.preloadID);
             this.tabPage4.Controls.Add(this.listBox3);
-            this.tabPage4.Controls.Add(this.orssPull);
             this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(1121, 343);
@@ -1186,9 +1202,9 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(363, 16);
+            this.textBox1.Location = new System.Drawing.Point(81, 25);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(733, 26);
+            this.textBox1.Size = new System.Drawing.Size(91, 26);
             this.textBox1.TabIndex = 2;
             // 
             // listBox3
@@ -1203,7 +1219,7 @@
             // 
             // orssPull
             // 
-            this.orssPull.Location = new System.Drawing.Point(987, 291);
+            this.orssPull.Location = new System.Drawing.Point(340, 21);
             this.orssPull.Name = "orssPull";
             this.orssPull.Size = new System.Drawing.Size(109, 34);
             this.orssPull.TabIndex = 0;
@@ -1233,6 +1249,93 @@
             this.label2.Size = new System.Drawing.Size(296, 32);
             this.label2.TabIndex = 30;
             this.label2.Text = "UPS Driver PFT Tool";
+            // 
+            // preloadID
+            // 
+            this.preloadID.Location = new System.Drawing.Point(473, 233);
+            this.preloadID.Name = "preloadID";
+            this.preloadID.Size = new System.Drawing.Size(100, 26);
+            this.preloadID.TabIndex = 3;
+            // 
+            // preloadRef
+            // 
+            this.preloadRef.AutoSize = true;
+            this.preloadRef.Location = new System.Drawing.Point(379, 236);
+            this.preloadRef.Name = "preloadRef";
+            this.preloadRef.Size = new System.Drawing.Size(88, 20);
+            this.preloadRef.TabIndex = 4;
+            this.preloadRef.Text = "Preload ID:";
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(418, 269);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(49, 20);
+            this.label39.TabIndex = 6;
+            this.label39.Text = "SLIC:";
+            // 
+            // orssSLIC
+            // 
+            this.orssSLIC.Location = new System.Drawing.Point(473, 266);
+            this.orssSLIC.Name = "orssSLIC";
+            this.orssSLIC.Size = new System.Drawing.Size(100, 26);
+            this.orssSLIC.TabIndex = 5;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(372, 303);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(95, 20);
+            this.label40.TabIndex = 8;
+            this.label40.Text = "Mneumonic:";
+            // 
+            // orssMneumonic
+            // 
+            this.orssMneumonic.Location = new System.Drawing.Point(473, 300);
+            this.orssMneumonic.Name = "orssMneumonic";
+            this.orssMneumonic.Size = new System.Drawing.Size(100, 26);
+            this.orssMneumonic.TabIndex = 7;
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.textBox2);
+            this.groupBox10.Controls.Add(this.label42);
+            this.groupBox10.Controls.Add(this.label41);
+            this.groupBox10.Controls.Add(this.textBox1);
+            this.groupBox10.Controls.Add(this.orssPull);
+            this.groupBox10.Location = new System.Drawing.Point(373, 16);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(462, 68);
+            this.groupBox10.TabIndex = 9;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "groupBox10";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(6, 28);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(69, 20);
+            this.label41.TabIndex = 3;
+            this.label41.Text = "Building:";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(178, 28);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(49, 20);
+            this.label42.TabIndex = 4;
+            this.label42.Text = "SLIC:";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(233, 25);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(91, 26);
+            this.textBox2.TabIndex = 5;
             // 
             // Form1
             // 
@@ -1276,6 +1379,8 @@
             this.tabPage4.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1388,6 +1493,16 @@
         private System.Windows.Forms.ListBox listBox3;
         private System.Windows.Forms.Button orssPull;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.TextBox orssMneumonic;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.TextBox orssSLIC;
+        private System.Windows.Forms.Label preloadRef;
+        private System.Windows.Forms.TextBox preloadID;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.Label label41;
     }
 }
 
